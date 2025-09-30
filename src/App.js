@@ -21,21 +21,18 @@ function MainApp({ token, onLogout }) {
   const [purchasePrice, setPurchasePrice] = useState('');
   const [purchaseWeight, setPurchaseWeight] = useState('');
   const [purchaseCurrency, setPurchaseCurrency] = useState('PLN');
+  const [exchangeRate, setExchangeRate] = useState('1'); // Nowy stan dla kursu
 
   // --- Stany pomocnicze ---
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // --- Funkcje do komunikacji z API ---
-
   // Pobieranie wszystkich potrzebnych danych
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      // Nagłówki z tokenem, których będziemy używać wielokrotnie
       const headers = { 'Authorization': `Bearer ${token}` };
 
-      // Pobieramy typy filamentów
       const typesResponse = await fetch(`${API_URL}/api/filament-types`, { headers });
       if (!typesResponse.ok) {
         if (typesResponse.status === 401 || typesResponse.status === 403) onLogout();
@@ -44,10 +41,9 @@ function MainApp({ token, onLogout }) {
       const typesData = await typesResponse.json();
       setFilamentTypes(typesData);
       if (typesData.length > 0 && !selectedFilamentId) {
-        setSelectedFilamentId(typesData[0].id); // Ustaw domyślnie pierwszy z listy
+        setSelectedFilamentId(typesData[0].id);
       }
 
-      // Pobieramy listę zakupów
       const purchasesResponse = await fetch(`${API_URL}/api/purchases`, { headers });
       if (!purchasesResponse.ok) throw new Error('Błąd pobierania zakupów');
       const purchasesData = await purchasesResponse.json();
@@ -74,7 +70,7 @@ function MainApp({ token, onLogout }) {
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ manufacturer, material, color }),
         });
-        fetchData(); // Odświeżamy wszystkie dane
+        fetchData();
         setManufacturer(''); setMaterial(''); setColor('');
     } catch (err) { alert(err.message); }
   };
@@ -95,10 +91,15 @@ function MainApp({ token, onLogout }) {
                 price: purchasePrice,
                 initialWeight: purchaseWeight,
                 currency: purchaseCurrency,
+                exchangeRate: exchangeRate, // Dodajemy kurs do wysyłki
             }),
         });
-        fetchData(); // Odświeżamy wszystkie dane
-        setPurchasePrice(''); setPurchaseWeight('');
+        fetchData();
+        // Resetujemy formularz do stanu początkowego
+        setPurchasePrice('');
+        setPurchaseWeight('');
+        setPurchaseCurrency('PLN');
+        setExchangeRate('1');
     } catch (err) { alert(err.message); }
   };
 
@@ -128,7 +129,23 @@ function MainApp({ token, onLogout }) {
                     </select>
                     <input type="number" placeholder="Cena" value={purchasePrice} onChange={(e) => setPurchasePrice(e.target.value)} required step="0.01" />
                     <input type="number" placeholder="Waga (g)" value={purchaseWeight} onChange={(e) => setPurchaseWeight(e.target.value)} required />
-                    <input type="text" placeholder="Waluta" value={purchaseCurrency} onChange={(e) => setPurchaseCurrency(e.target.value)} required />
+                    <select value={purchaseCurrency} onChange={(e) => {
+                        const newCurrency = e.target.value;
+                        setPurchaseCurrency(newCurrency);
+                        if (newCurrency === 'PLN') {
+                            setExchangeRate('1');
+                        }
+                    }}>
+                        <option value="PLN">PLN</option>
+                        <option value="EUR">EUR</option>
+                        <option value="USD">USD</option>
+                        <option value="CZK">CZK</option>
+                    </select>
+                    
+                    {purchaseCurrency !== 'PLN' && (
+                        <input type="number" placeholder={`Kurs ${purchaseCurrency}/PLN`} value={exchangeRate} onChange={(e) => setExchangeRate(e.target.value)} required step="0.0001" />
+                    )}
+
                     <button type="submit">Dodaj zakup</button>
                 </form>
             </section>
@@ -143,8 +160,8 @@ function MainApp({ token, onLogout }) {
                   <th>Filament</th>
                   <th>Data zakupu</th>
                   <th>Waga (zostało / całość)</th>
-                  <th>Cena zakupu</th>
-                  <th>Koszt / gram</th>
+                  <th>Cena zakupu (oryg.)</th>
+                  <th>Koszt / gram (PLN)</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,7 +174,7 @@ function MainApp({ token, onLogout }) {
                       <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
                       <td>{p.currentWeight}g / {p.initialWeight}g</td>
                       <td>{p.price.toFixed(2)} {p.currency}</td>
-                      <td>{p.costPerGram.toFixed(4)} {p.currency}</td>
+                      <td>{p.costPerGramInPLN.toFixed(4)} PLN</td>
                     </tr>
                   ))
                 )}
