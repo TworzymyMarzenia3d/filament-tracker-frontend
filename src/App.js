@@ -3,7 +3,14 @@ import './App.css';
 
 // Adres naszego backendu. Na razie jest to adres lokalny.
 // Po wdrożeniu na Render, ten adres zostanie automatycznie podmieniony.
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+// Adres naszego backendu
+const API_URL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_URL
+  : 'http://localhost:3001';
+
+if (process.env.NODE_ENV === 'production' && !API_URL) {
+  console.error("FATAL ERROR: REACT_APP_API_URL is not set in production environment!");
+}
 
 function App() {
   // Stany komponentu: przechowują dane, z którymi pracujemy
