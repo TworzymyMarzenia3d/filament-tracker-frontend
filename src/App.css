@@ -78,3 +78,47 @@ li {
 .error-message {
   color: #d9534f;
 }
+/* Nowe style dla panelu zarządzania i tabeli */
+.management-panel {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
+.list-section.full-width {
+  flex-basis: 100%;
+}
+
+.container {
+  flex-direction: column; /* Zmieniamy układ na kolumnowy */
+}
+
+select {
+  font-size: 1rem;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  background-color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
