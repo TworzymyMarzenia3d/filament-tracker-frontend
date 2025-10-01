@@ -122,3 +122,50 @@ th {
 tbody tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
+/* =================================== */
+/* === Style dla Ekranu Logowania === */
+/* =================================== */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7f6; /* Użyjemy jaśniejszego tła */
+}
+
+.login-form {
+  padding: 2rem 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centruje elementy w poziomie */
+}
+
+/* Styl bezpośrednio dla pola input w formularzu logowania */
+.login-form input {
+  width: 80%; /* ZMNIEJSZAMY SZEROKOŚĆ POLA */
+  margin-bottom: 1.5rem; /* Dodajemy większy odstęp na dole */
+}
+
+/* Styl dla przycisku wylogowania, żeby był w jednym miejscu */
+.logout-button {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}
