@@ -208,3 +208,45 @@ tbody tr:nth-child(odd) {
 .add-btn:hover {
   background-color: #0069d9;
 }
+/* Style dla nawigacji */
+.navbar {
+  width: 100%;
+  background-color: #343a40;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar-links a {
+  color: #adb5bd;
+  text-decoration: none;
+  padding: 1rem 0;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar-links a:hover {
+  color: white;
+}
+
+.navbar-links a.active {
+  color: white;
+  border-bottom: 2px solid #007bff;
+}
+
+.App-header {
+  display: none; /* Ukrywamy stary nagłówek */
+}
