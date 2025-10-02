@@ -169,3 +169,42 @@ tbody tr:nth-child(odd) {
 .logout-button:hover {
   background-color: #c82333;
 }
+/* Style dla formularza zużycia */
+.job-name-input {
+  width: 50% !important; /* Ważne, żeby nadpisać ogólny styl */
+  margin-bottom: 1rem !important;
+}
+
+.usage-entry {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.usage-entry select, .usage-entry input {
+  margin: 0;
+  flex: 1;
+}
+
+.add-btn, .remove-btn, .submit-job-btn {
+  margin-top: 1rem;
+  width: auto !important; /* Nadpisanie stylu dla przycisków */
+  padding: 10px 20px;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  margin: 0;
+}
+.remove-btn:hover {
+  background-color: #c82333;
+}
+
+.add-btn {
+  background-color: #007bff;
+  margin-right: 1rem;
+}
+.add-btn:hover {
+  background-color: #0069d9;
+}
