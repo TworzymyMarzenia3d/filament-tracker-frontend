@@ -1,3 +1,5 @@
+/* Plik: frontend/src/App.css */
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -8,117 +10,103 @@ body {
   background-color: #f4f7f6;
   color: #333;
 }
-
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
-  margin-bottom: 2rem;
-}
-
+*, *:before, *:after { box-sizing: border-box; }
+.App { text-align: center; }
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
   display: flex;
+  flex-direction: column;
   gap: 2rem;
 }
-
+.management-panel { display: flex; gap: 2rem; width: 100%; }
 .form-section, .list-section {
   background-color: white;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   flex: 1;
+  text-align: left;
 }
-
-h1, h2 {
+.list-section.full-width { flex-basis: 100%; }
+h2 {
   margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
-
-input, button {
+input, button, select, textarea {
   font-size: 1rem;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: calc(100% - 22px); /* Pełna szerokość minus padding i border */
+  width: 100%;
+  font-family: inherit;
 }
-
 button {
   background-color: #28a745;
   color: white;
   border: none;
   cursor: pointer;
-  width: 100%;
+  transition: background-color 0.2s;
 }
-
-button:hover {
-  background-color: #218838;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-}
-
-li {
-  background-color: #f8f9fa;
-  margin-bottom: 8px;
-  padding: 12px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-}
-
-.error-message {
-  color: #d9534f;
-}
-/* Nowe style dla panelu zarządzania i tabeli */
-.management-panel {
-  display: flex;
-  gap: 2rem;
-  width: 100%;
-}
-
-.list-section.full-width {
-  flex-basis: 100%;
-}
-
-.container {
-  flex-direction: column; /* Zmieniamy układ na kolumnowy */
-}
-
-select {
-  font-size: 1rem;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  background-color: white;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
+button:hover { background-color: #218838; }
+.error-message { color: #d9534f; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+th { background-color: #f8f9fa; font-weight: 600; }
+tbody tr:nth-child(odd) { background-color: #fdfdfd; }
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: block;
   margin-top: 1rem;
+  margin-bottom: 0.25rem;
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+/* --- Nawigacja --- */
+.navbar {
+  width: 100%;
+  height: 60px;
+  background-color: #343a40;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
 }
+.navbar-brand { color: white; font-size: 1.5rem; font-weight: bold; margin-right: 2.5rem; }
+.navbar-links { display: flex; gap: 1.5rem; }
+.navbar-links a {
+  color: #adb5bd;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.navbar-links a:hover { color: white; }
+.navbar-links a.active { color: white; border-bottom: 2px solid #007bff; }
+.logout-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  margin-left: auto;
+  width: auto;
+}
+.logout-button:hover { background-color: #5a6268; }
 
-th {
-  background-color: #f2f2f2;
+/* --- Ekran Logowania --- */
+.login-container { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f7f6; }
+.login-form {
+  padding: 2rem 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
+.login-form input { width: 80%; margin-bottom: 1.5rem; }
